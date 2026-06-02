@@ -1,10 +1,10 @@
-name - terraform-pipeline
+name: terraform-pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -29,8 +29,3 @@ jobs:
 
     - name: Plan
       run: terraform Plan
-
-    - name: Apply
-      run: terraform apply
-
-
