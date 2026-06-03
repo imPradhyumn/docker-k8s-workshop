@@ -1,10 +1,13 @@
 name: terraform-pipeline
 
 on:
-  push:
-    branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      destroy:
+        required: true
+        default: "false"
 
 jobs:
   build:
@@ -34,4 +37,10 @@ jobs:
 
       - name: Apply
         working-directory: ./terraform
+        if: ${{ !inputs.destroy }}
         run: terraform apply -auto-approve
+
+      - name: Destroy
+        working-directory: ./terraform
+        if: ${{ inputs.destroy }}
+        run: terraform destrou -auto-approve
