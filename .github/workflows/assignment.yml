@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build docker with nginx
+      - name: Setup docker
         uses: docker/setup-docker-action@v5
 
       - name: Build frontend
@@ -25,8 +25,8 @@ jobs:
 
       - name: Run backend
         working-directory: ./backend
-        run: docker -d -p 8080:8080 backend
+        run: docker run -d -p 8080:8080 backend
 
       - name: Run frontend
         working-directory: ./frontend
-        run: docker -d -p 80:80 frontend
+        run: docker run -d -p 80:80 frontend
