@@ -1,0 +1,33 @@
+name: Assigment Pipeline
+
+on:
+  push:
+    branches: ["main"]
+    paths: ["**/assignment"]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build docker with nginx
+        uses: docker/setup-docker-action@v5
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: docker build -t frontend .
+
+      - name: Build backend
+        working-directory: ./backend
+        run: docker build -t backend .
+
+      - name: Run backend
+        working-directory: ./backend
+        run: docker -d -p 8080:8080 backend
+
+      - name: Run frontend
+        working-directory: ./frontend
+        run: docker -d -p 80:80 frontend
