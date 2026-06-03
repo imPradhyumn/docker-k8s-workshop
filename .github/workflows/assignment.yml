@@ -3,7 +3,6 @@ name: Assigment Pipeline
 on:
   push:
     branches: ["main"]
-    paths: ["**/assignment"]
 
 jobs:
   build-frontend:
